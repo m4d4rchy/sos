@@ -118,7 +118,30 @@ def displayPlayer(mySurface, n, player):
         textRect.topleft = (800, 300)
         mySurface.blit(text, textRect)
 
+def drawCell(mySurface, board, i, j, player):
+    letter = ''
+    x = 60 * j + 35
+    y = 60 * i + 35
+    RED = (255, 0, 0)
+    BLUE = (0, 0, 255)
+    font = pygame.font.Font('font/Washington.ttf', 48)
+    if (board[i][j] == 1):
+        letter = 'S'
+    else:
+        letter = 'O'
+    if (player == 1):
+        text = font.render(letter, True, BLUE)
+        textRect = text.get_rect()
+        textRect.topleft = (x, y)
+        mySurface.blit(text, textRect)
+    else:
+        text = font.render(letter, True, BLUE)
+        textRect = text.get_rect()
+        textRect.topleft = (x, y)
+        mySurface.blit(text, textRect)
+
 def gameloop():
+    board = [[1] * n for i in range(6)]
     GREY = (70, 70, 70)
     pygame.init()
     mySurface = pygame.display.set_mode((900, 600))
@@ -131,14 +154,12 @@ def gameloop():
                 inProgress = False
         mySurface.fill(GREY)
         drawBoard(mySurface, 6)
-        displayScore(mySurface, 1, 2)
+        drawCell(mySurface, board, 0, 0, 1):
         pygame.display.update()
     pygame.quit()
 
 menu()  
 
-'''def drawCell(mySurface,board,i,j,player):
-
-def drawLines(mySurface,lines,player):
+'''def drawLines(mySurface,lines,player):
 
 def displayWinner(mySurface,n,scores):'''
