@@ -120,8 +120,8 @@ def displayPlayer(mySurface, n, player):
 
 def drawCell(mySurface, board, i, j, player):
     letter = ''
-    x = 60 * j + 35
-    y = 60 * i + 35
+    x = (60 + 23 - (j + 5)) * (j + 1)
+    y = (60 + 15) * (i + 1)
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
     font = pygame.font.Font('font/Washington.ttf', 48)
@@ -141,7 +141,7 @@ def drawCell(mySurface, board, i, j, player):
         mySurface.blit(text, textRect)
 
 def gameloop():
-    board = [[1] * n for i in range(6)]
+    board = [[1] * 6 for i in range(6)]
     GREY = (70, 70, 70)
     pygame.init()
     mySurface = pygame.display.set_mode((900, 600))
@@ -154,7 +154,7 @@ def gameloop():
                 inProgress = False
         mySurface.fill(GREY)
         drawBoard(mySurface, 6)
-        drawCell(mySurface, board, 0, 0, 1):
+        drawCell(mySurface, board, 0, 2, 1)
         pygame.display.update()
     pygame.quit()
 
