@@ -5,6 +5,8 @@ from pygame.locals import *
 
 def menu():
     GREY = (70, 70, 70)
+    BLACK = (0, 0 ,0)
+    YELLOW = (255, 100, 0)
     pygame.init()
     mySurface = pygame.display.set_mode((900, 600))
     pygame.display.set_caption('SOS')
@@ -14,13 +16,13 @@ def menu():
         mouse = pygame.mouse.get_pos()
         mySurface.fill(GREY)
         displayLogo(mySurface)
-        drawButton(mySurface)
+        drawButton(mySurface, BLACK, 0)
+        if ((380 + 150) > mouse[0] > 380 and (240 + 50) > mouse[1] > 240):
+                    drawButton(mySurface, YELLOW, 1)
+        elif ((380 + 150) > mouse[0] > 380 and (310 + 50) > mouse[1] > 310):
+                    drawButton(mySurface, YELLOW, 2)
         pygame.display.update()
         for event in pygame.event.get():
-            '''if ((380 + 150) > mouse[0] > 380 and (240 + 50) > mouse[1] > 240):
-                    buttonHover()
-                if ((380 + 150) > mouse[0] > 380 and (310 + 50) > mouse[1] > 310):
-                    buttonHover()'''
             if event.type == MOUSEBUTTONDOWN:
                 if ((380 + 150) > mouse[0] > 380 and (240 + 50) > mouse[1] > 240):
                     gameloop()
@@ -41,54 +43,53 @@ def displayLogo(mySurface):
     textRect.topleft = (320, 110)
     mySurface.blit(text, textRect)
 
-def drawButton(mySurface):
+def drawButton(mySurface, textColor, option):
     WHITE = (255, 255, 255)
     BLACK = (0, 0 ,0)
     pygame.draw.rect(mySurface, WHITE, (380,240,150,50))
     pygame.draw.rect(mySurface, WHITE, (380,310,150,50))
     fontSolo = pygame.font.Font('font/solid.ttf', 50)
-    text = fontSolo.render('SOLO', True, BLACK)
+    fontMult = pygame.font.Font('font/solid.ttf', 20)
+    if (option == 1):
+        text = fontSolo.render('SOLO', True, textColor)
+    else:
+        text = fontSolo.render('SOLO', True, BLACK)
     textRect = text.get_rect()
     textRect.topleft = (386, 249)
     mySurface.blit(text, textRect)
-    fontMult = pygame.font.Font('font/solid.ttf', 20)
-    text = fontMult.render('MULTIPLAYER', True, BLACK)
+    if (option == 2):
+        text = fontMult.render('MULTIPLAYER', True, textColor)
+    else:
+        text = fontMult.render('MULTIPLAYER', True, BLACK)
     textRect.topleft = (383, 328)
     mySurface.blit(text, textRect)
 
 def drawBoard(mySurface, n):
     WHITE = (255, 255, 255)
-    pos1 = (50, 60)
-    pos2 = (550, 60)
-    pos3 = (50, 500)
-    pos4 = (550, 500)
-    count = 0
-    pygame.draw.line(mySurface, WHITE, pos1, pos2)
-    pygame.draw.line(mySurface, WHITE, pos1, pos3)
-    pygame.draw.line(mySurface, WHITE, pos3, pos4)
-    pygame.draw.line(mySurface, WHITE, pos4, pos2)
-    drawBoardLine(mySurface, WHITE)
+    x = 60
+    y = 60
+    size = 70
+    i = 0
+    j = 0
+    while (i != n):
+        while (j != n):
+            drawBoardCell(mySurface, WHITE, x, y, size)    
+            x = x + size
+            j = j + 1
+        j = 0
+        i = i + 1
+        x = 60
+        y = y + size
 
-'''def drawBoardCell(mySurface, x, y):'''
-
-    
-
-def drawBoardLine(mySurface, WHITE):
-    pos1 = (150, 60)
-    pos2 = (150, 500)
-    pos3 = (250, 60)
-    pos4 = (250, 500)
-    pos5 = (350, 60)
-    pos6 = (350, 500)
-    pos7 = (450, 60)
-    pos8 = (450, 500)
-    pos9 = (550, 60)
-    pos10 = (550, 500)
-    pygame.draw.line(mySurface, WHITE, pos1, pos2)
-    pygame.draw.line(mySurface, WHITE, pos3, pos4)
-    pygame.draw.line(mySurface, WHITE, pos5, pos6)
-    pygame.draw.line(mySurface, WHITE, pos7, pos8)
-    pygame.draw.line(mySurface, WHITE, pos9, pos10)
+def drawBoardCell(mySurface, COLOR, x, y, size):
+    pos1 = (x, y)
+    pos2 = (x + size, y)
+    pos3 = (x + size, y + size)
+    pos4 = (x, y + size)
+    pygame.draw.line(mySurface, COLOR, pos1, pos2)
+    pygame.draw.line(mySurface, COLOR, pos2, pos3)
+    pygame.draw.line(mySurface, COLOR, pos3, pos4)
+    pygame.draw.line(mySurface, COLOR, pos4, pos1)   
 
 def displayScore(mySurface, n, scores):
     RED = (255, 0, 0)
@@ -102,6 +103,21 @@ def displayScore(mySurface, n, scores):
     textRect.topleft = (600, 300)
     mySurface.blit(text, textRect)
 
+def displayPlayer(mySurface, n, player):
+    RED = (255, 0, 0)
+    BLUE = (0, 0, 255)
+    font = pygame.font.Font('font/Washington.ttf', 48)
+    if (player == 1):
+        text = font.render('<--', True, BLUE)
+        textRect = text.get_rect()
+        textRect.topleft = (800, 200)
+        mySurface.blit(text, textRect)
+    else:
+        text = font.render('<--', True, RED)
+        textRect = text.get_rect()
+        textRect.topleft = (800, 300)
+        mySurface.blit(text, textRect)
+
 def gameloop():
     GREY = (70, 70, 70)
     pygame.init()
@@ -114,16 +130,14 @@ def gameloop():
             if event.type == QUIT:
                 inProgress = False
         mySurface.fill(GREY)
-        drawBoard(mySurface, 2)
+        drawBoard(mySurface, 6)
         displayScore(mySurface, 1, 2)
         pygame.display.update()
     pygame.quit()
 
-menu()
+menu()  
 
-'''def displayPlayer(mySurface, n, player):
-
-def drawCell(mySurface,board,i,j,player):
+'''def drawCell(mySurface,board,i,j,player):
 
 def drawLines(mySurface,lines,player):
 
