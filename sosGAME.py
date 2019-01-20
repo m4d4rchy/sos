@@ -108,16 +108,23 @@ def clearCell(mySurface, board, i, j):
 
 def drawLines(mySurface, lines, player):
     if (lines):
-        x = 70 * (lines[1] + 1) + 15 
-        y = 70 * (lines[0] + 1) + 35
-        x1 = 70 * (lines[3] + 1) + 55
-        y1 = 70 * (lines[2] + 1) + 35
-        pos1 = (x, y)
-        pos2 = (x1, y1)
-        if (player == 1):
-            pygame.draw.line(mySurface, BLUE, pos1, pos2)
-        elif (player == 2):
-            pygame.draw.line(mySurface, RED, pos1, pos2)
+        for i in range(len(lines)):
+            if (lines[i][1] == lines[i][3]):
+                x = 70 * (lines[i][1] + 1) + 35 
+                y = 70 * (lines[i][0] + 1) + 15
+                x1 = 70 * (lines[i][3] + 1) + 35
+                y1 = 70 * (lines[i][2] + 1) + 55
+            if (lines[i][0] == lines[i][2]):
+                x = 70 * (lines[i][1] + 1) + 55 
+                y = 70 * (lines[i][0] + 1) + 35
+                x1 = 70 * (lines[i][3] + 1) + 15
+                y1 = 70 * (lines[i][2] + 1) + 35                
+            pos1 = (x, y)
+            pos2 = (x1, y1)
+            if (player == 1):
+                pygame.draw.line(mySurface, BLUE, pos1, pos2)
+            elif (player == 2):
+                pygame.draw.line(mySurface, RED, pos1, pos2)
 
 def selectSquare(mySurface, board, n, size):
     i = 0
@@ -165,7 +172,7 @@ def gameloop(n, size):
     displayTeam(mySurface)
     while inProgress:
         position = [-1, -1]
-        lines = []
+        lines = [[] * 8 for i in range(8)]
         displayScore(mySurface, 6, scores)
         displayPlayer(mySurface, n, player)
         for event in pygame.event.get():
@@ -175,7 +182,7 @@ def gameloop(n, size):
                 inProgress = False
         if (position[0] != -1):
             drawCell(mySurface, board, position[1], position[0], player)
-            updateScoreS(board, n, position[1], position[0], scores, player, lines)
+            lines = updateScoreS(board, n, position[1], position[0], scores, player)
             drawLines(mySurface, lines , player)
             displayScore(mySurface, 6, scores)
             if (player == 2):

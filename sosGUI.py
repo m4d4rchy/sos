@@ -12,8 +12,8 @@ def menu():
 
     mySurface.fill(GREY)
     displayLogo(mySurface)
-    drawButton(mySurface, BLACK, 0)
     while inProgress:
+        drawButton(mySurface, BLACK, 0)
         mouse = pygame.mouse.get_pos()
         if ((380 + 150) > mouse[0] > 380 and (240 + 50) > mouse[1] > 240):
                     drawButton(mySurface, YELLOW, 1)
