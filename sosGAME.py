@@ -4,18 +4,6 @@ from pygame.locals import *
 from sosAlgorithms import *
 from sosINIT import *
 
-#Resolution
-heigth = 600
-width = 900
-
-#Colours
-GREY = (70, 70, 70)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-ORANGE = (255,140,0)
-GREEN = (50, 70, 50)
-
 def drawBoard(mySurface, n):
     x = 70
     y = 70
@@ -48,12 +36,30 @@ def drawBoardLetter(mySurface, x, y, size):
     textRect.topleft = (x, (y + 15))
     mySurface.blit(boardText, textRect)
 
-def displayScore(mySurface, n, scores):
+def displayTeam(mySurface):
     textRect = bscoreText.get_rect()
     textRect.topleft = (600, 200)
     mySurface.blit(bscoreText, textRect)
     textRect.topleft = (600, 300)
     mySurface.blit(rscoreText, textRect)
+
+def displayScore(mySurface, n, scores):
+    clearScore(mySurface)
+    player1str = str(scores[0])
+    player2str = str(scores[1])
+    player1 = score1Font.render(player1str, True, WHITE)
+    player2 = score1Font.render(player2str, True, WHITE)
+    textRect = player1.get_rect()
+    textRect.topleft = (715, 190)
+    mySurface.blit(player1, textRect)
+    textRect.topleft = (715, 290)
+    mySurface.blit(player2, textRect)
+
+def clearScore(mySurface):
+    rect = (715, 190, 70, 70)
+    pygame.draw.rect(mySurface, GREY, rect)
+    rect = (715, 290, 70, 70)
+    pygame.draw.rect(mySurface, GREY, rect)
 
 def displayPlayer(mySurface, n, player):
     if (player == 1):
@@ -144,7 +150,6 @@ def selectSquare(mySurface, board, n, size):
         y = y + size
     return (position)
 
-
 def gameloop(n, size):
     pygame.init()
     mySurface = pygame.display.set_mode((width, heigth))
@@ -157,6 +162,7 @@ def gameloop(n, size):
 
     mySurface.fill(GREY)
     drawBoard(mySurface, n)
+    displayTeam(mySurface)
     while inProgress:
         position = [-1, -1]
         lines = []

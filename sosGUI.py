@@ -2,22 +2,7 @@
 import pygame
 from pygame.locals import *
 from sosGAME import *
-
-#Resolution
-heigth = 600
-width = 900
-
-#Colours
-GREY = (70, 70, 70)
-BLACK = (0, 0 ,0)
-WHITE = (255, 255, 255)
-YELLOW = (255, 100, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-
-#Game Setting
-tableSize = 6
-squareSize = 70
+from sosINIT import *
 
 def menu():
     pygame.init()
@@ -63,20 +48,17 @@ def displayLogo(mySurface):
 def drawButton(mySurface, textColor, option):
     pygame.draw.rect(mySurface, WHITE, (380,240,150,50))
     pygame.draw.rect(mySurface, WHITE, (380,310,150,50))
-    fontSolo = pygame.font.Font('font/solid.ttf', 50)
-    fontMult = pygame.font.Font('font/solid.ttf', 20)
-    if (option == 1):
-        text = fontSolo.render('SOLO', True, textColor)
-    else:
-        text = fontSolo.render('SOLO', True, BLACK)
-    textRect = text.get_rect()
+    textRect = sbuttonText.get_rect()
     textRect.topleft = (386, 249)
-    mySurface.blit(text, textRect)
-    if (option == 2):
-        text = fontMult.render('MULTIPLAYER', True, textColor)
+    if (option == 1):
+        mySurface.blit(sbuttonhoverText, textRect)
     else:
-        text = fontMult.render('MULTIPLAYER', True, BLACK)
+        mySurface.blit(sbuttonText, textRect)
+    textRect = mbuttonText.get_rect()
     textRect.topleft = (383, 328)
-    mySurface.blit(text, textRect)
+    if (option == 2):
+        mySurface.blit(mbuttonhoverText, textRect)
+    else:
+        mySurface.blit(mbuttonText, textRect)
 
 menu()
