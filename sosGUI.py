@@ -34,12 +34,6 @@ def menu():
 
 
 def displayLogo(mySurface):
-    '''if (pygame.time.get_ticks() == time):
-        if (COLOR == BLUE):
-            COLOR = RED
-        if (COLOR == RED):
-            COLOR = BLUE
-        time = time + 2000'''
     textRect = logoText.get_rect()
     textRect.topleft = (320, 110)
     mySurface.blit(logoText, textRect)

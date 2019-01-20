@@ -183,6 +183,7 @@ def gameloop(n, size):
         if (position[0] != -1):
             drawCell(mySurface, board, position[1], position[0], player)
             lines = updateScoreS(board, n, position[1], position[0], scores, player)
+            lines =  updateScoreO(board, n, position[1], position[0], scores, player)
             drawLines(mySurface, lines , player)
             displayScore(mySurface, 6, scores)
             if (player == 2):
@@ -192,5 +193,5 @@ def gameloop(n, size):
         pygame.display.update()
     pygame.quit()
 
-'''def displayWinner(mySurface,n,scores):
+'''def displayWinner(mySurface, n, scores):
         selectSquare(mySurface, board, n)'''
