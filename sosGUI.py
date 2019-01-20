@@ -29,7 +29,8 @@ def menu():
                     inProgress = False
             if event.type == QUIT:
                 inProgress = False
-        pygame.display.update()
+        if (inProgress == True):
+            pygame.display.update()
     pygame.quit()
 
 

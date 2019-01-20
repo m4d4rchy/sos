@@ -183,6 +183,7 @@ def gameloop(n, size):
         if (position[0] != -1):
             drawCell(mySurface, board, position[1], position[0], player)
             lines = updateScoreS(board, n, position[1], position[0], scores, player)
+            drawLines(mySurface, lines , player)
             lines =  updateScoreO(board, n, position[1], position[0], scores, player)
             drawLines(mySurface, lines , player)
             displayScore(mySurface, 6, scores)
