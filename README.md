@@ -5,8 +5,7 @@ To run the game you must install python.
 ```
 $ sudo pacman -S python
 $ sudo apt install python
-$ sudo rpm install python
-
+$ sudo yum install python
 ```
 PyGame library is also needed to start.
 I use pip to install PyGame.
