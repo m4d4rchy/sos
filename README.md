@@ -1,5 +1,7 @@
 # S.O.S GAME
 
+![](screenshots/1.png)
+
 ## Installation
 To run the game you must install python.
 ```
@@ -19,3 +21,7 @@ $ ./sosGUI
 
 ## How to play?
 Just align the letters S.O.S to get points.
+
+![](screenshots/2.png)
+
+![](screenshots/3.png)
