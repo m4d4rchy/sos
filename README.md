@@ -1,3 +1,3 @@
-# 1ADS-MP2-19
+# S.O.S GAME
 SOS GAME
 run ./sosGUI to start playing
